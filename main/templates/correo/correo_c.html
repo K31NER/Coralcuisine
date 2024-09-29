@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Reserva</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .container {
+            max-width: 600px; 
+            margin: auto; 
+            background: #fff; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .imagen-container h1{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .bienvenido {
+            text-align: center;
+            color: #333;
+        }
+        h1 { 
+            color: #2f68ca; 
+            margin-bottom: 10px; 
+        }
+        p {
+            font-size: 16px; 
+            line-height: 1.5; 
+            margin: 8px 0; 
+        }
+        footer {
+            margin-top: 20px; 
+            text-align: center; 
+            font-size: 14px; 
+            color: #666; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="imagen-container">
+            <img src="https://i.imgur.com/vwDiFLS.png" alt="Logo de Coral Cuisine">
+        </div>
+        <div class="bienvenido">
+            <h1>Coral Cuisine</h1>
+            <h1>¡Hola {{ nombre }}!</h1>
+            <p>Tu reserva para {{ personas }} personas ha sido confirmada.</p>
+            <p>Fecha: {{ fecha }}</p>
+            <p>Hora: {{ hora }}</p>
+            <p>Negocio: {{ negocio }}</p>
+            <p>Número de local: {{ numero_local }}</p>
+            <p>¡Gracias por elegirnos!</p>
+        </div>
+        <footer>
+            <p>Coral Cuisine &copy; {{ current_year }}</p>
+        </footer>
+    </div>
+</body>
+</html>

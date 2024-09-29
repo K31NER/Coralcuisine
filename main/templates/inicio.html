@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block titulo%} Inicio {%endblock%}
+
+{% block contenido%}  
+<style>
+
+    a.btn-reserva {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: rgb(255, 255, 255);
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 25px;
+        transition: background-color 0.3s ease;
+    }
+    
+    a.btn-reserva:hover {
+        background-color: #F9DBBA;
+        color: black;
+    }
+
+    /* descripcion */
+    details p {
+        max-height: 60px; 
+        max-width: 300px;
+        overflow-y: scroll;  
+        margin: 10px 0;
+        border: 1px solid #ccc; 
+        border-radius: 8px;     
+        background-color:  #16325B;
+        scrollbar-width: thin;      
+        scrollbar-color: #16325B #E0E0E0; 
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1); 
+    }
+    
+    /* Personaliza el scroll en Webkit (Chrome, Safari, Edge) */
+    details p::-webkit-scrollbar {
+        width: 8px;
+        background-color:  #16325B;
+         /* Color del fondo del scroll */
+    }
+    
+    details p::-webkit-scrollbar-thumb {
+        background-color: #16325B; /* Color del scroll */
+        border-radius: 4px;        /* Bordes redondeados */
+    }
+    
+    /* Suaviza el desplazamiento */
+    details p {
+        scroll-behavior: smooth;
+    }
+    .banner-maritimo {
+        background: linear-gradient(135deg, #227B94, #16325B);
+        background-size: cover;
+        background-position: center;
+        border-radius: 20px;
+        padding: 40px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .banner-maritimo h1 {
+        font-size: 48px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .banner-maritimo p {
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    
+</style>
+<br>
+<div class="banner-maritimo">
+        {% if user.is_authenticated %}
+        <h1>Hola {{ user.username.upper }}</h1>
+        <h2>Bienvenido a la seccion de productos</h2>
+        <h2>Aquí podrá ver todos nuestros platos registrados</h2>
+        {% else %}
+        <h1>Hola, visitante</h1>
+        <h1>Bienvenido a la seccion de productos</h1>
+        <p>Para tener acceso a todas las funciones, inicie sesión</p>
+        {% endif %}
+</div>
+
+<div class="gallery">
+    {% for producto in productos %}
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+            </div>
+            <div class="card-back">
+                <h3>{{ producto.nombre }}</h3>
+                <p>${{ producto.precio|intcomma }} COP</p>
+                <h3>{{ producto.id_negocio }}</h3>
+                <details>
+                    <summary>DESCRIPCIÓN</summary>
+                    <p>{{ producto.descripcion }}</p>
+                </details>
+                <br>
+                <a name="" id="" class="btn btn-reserva" href="{% url 'form_reserva' producto.id_producto %}" role="button">Reservar</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{%endblock%}

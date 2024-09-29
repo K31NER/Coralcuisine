@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar producto</title>
+    <link rel="icon" href="https://i.imgur.com/vwDiFLS.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("https://img.freepik.com/foto-gratis/vaciar-mar-playa-fondo_1339-4265.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input, textarea, select {
+            border-radius: 20px;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .contenedor {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 25px;
+            background-color: #F9DBBA;
+            width: 350px;
+            height: auto;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+            display: block;
+        }
+
+        button {
+            border-radius: 25px;
+            width: 100%;
+            height: 50px;
+            background-color: #227B94;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #78B7D0;
+        }
+
+        a{
+            display: flex;
+            justify-content: center;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h2>Editar Producto</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <label for="nombre">Nombre del producto</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre del producto" value="{{ producto.nombre }}" required>
+
+            <label for="precio">Precio</label>
+            <input type="number" id="precio" name="precio" placeholder="Precio" value="{{ producto.precio }}" required>
+
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion" rows="4" placeholder="Descripción del producto" required>{{ producto.descripcion }}</textarea>
+
+            <label for="imagen">Imagen del producto</label>
+            <input type="file" id="imagen" name="imagen" accept="image/*">
+            
+            <!-- Mostrar la imagen actual si existe -->
+            {% if producto.imagen %}
+                <p>Imagen actual:</p>
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" style="width: 150px; height: auto;">
+            {% endif %}
+
+            <button type="submit">Modificar Producto</button>
+            <br><br>
+            <a href="{% url 'inventario' %}">volver</a>
+        </form>
+    </div>
+</body>
+</html>

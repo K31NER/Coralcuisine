@@ -1,0 +1,123 @@
+{% extends 'admin/base_admin.html'%}
+{% load humanize %}
+{% block titulo%} inventario {% endblock%}
+
+{% block contenido%}
+
+<style>
+    .btn {
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-decoration: none;
+        color: black;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-info {
+        background-color:  #17a2b8;
+        color: white; 
+    }
+    
+    .btn-info:hover {
+        background-color: #227B94; 
+        color: white;
+    }
+    
+    .btn-danger {
+        background-color: red; 
+        color:white;
+    }
+    
+    .btn-danger:hover {
+        background-color: #e14050; 
+        color: white;
+    }
+
+    .Agregar {
+        background-color:  #17a2b8;
+        color: white; 
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-decoration: none;
+        color: black;
+        transition: background-color 0.3s ease;
+    }
+    
+    .Agregar:hover {
+        background-color: #227B94; 
+        color: white;
+    }
+
+    .funciones{
+        display: flex;
+    }
+    .editar{
+        display: flex;
+        
+    }
+    .borrar{
+        display: flex;
+    }
+    /* Media query para pantallas pequeñas */
+    @media (max-width: 600px) {
+            .funciones{
+                display: block;
+                padding-bottom: 10px;
+            }
+        }
+    </style>
+<div class="form">
+    <div class="form-header">Lista de productos</div>
+
+    <div class="form-body">
+        <a href="{% url 'creacion'%}" class="Agregar" role="button">Agregar nuevo producto</a>
+        <div
+            class="table-responsive"
+        >
+            <table
+                class="table table-primary"
+            >
+                {% for producto in productos %} 
+                <thead>
+                    
+                    <tr>
+                        
+                        <th scope="col">ID</th>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col">DESCRIPCION</th>
+                        <th scope="col">IMAGEN</th>
+                        <th scope="col">ACCIONES</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td scope="row">{{ producto.id_producto}}</td>
+                        <td>{{producto.nombre}}</td>
+                        <td>${{ producto.precio|intcomma }} COP</td>
+                        <td>{{ producto.descripcion}}</td>
+                        <td><img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}"></td>
+                        <td>
+                            <div class="funciones">
+                            <div class="editar">
+                            <a name="" id="" class="btn btn-info" href="{% url 'editor' producto.id_producto %}" role="button">Editar</a>
+
+                            </div>
+                            <div class="borrar">
+                                <a class="btn btn-danger" href="{% url 'eliminar_producto' producto.id_producto %}" role="button" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Borrar</a>
+
+                            </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor%}
+            </table>
+        </div>
+        
+    </div>
+</div>
+{% endblock%}

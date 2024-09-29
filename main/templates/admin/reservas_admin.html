@@ -1,0 +1,81 @@
+{% extends 'admin/base_admin.html'%}
+
+{% block title%}  calendario {% endblock%}
+
+{% block contenido%}  
+
+<style>
+    .btn {
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-decoration: none;
+        color: black;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-info {
+        background-color:  #17a2b8;
+        color: white; 
+    }
+    
+    .btn-info:hover {
+        background-color: #227B94; 
+        color: white;
+    }
+    
+    .btn-danger {
+        background-color: red; 
+        color:white;
+    }
+    
+    .btn-danger:hover {
+        background-color: #e14050; 
+        color: white;
+    }
+    
+    </style>
+<div class="form">
+    <div class="form-header">Calendario</div>
+
+    <div class="form-body">
+        <div
+            class="table-responsive"
+        >
+            <table
+                class="table table-primary"
+            >
+                <thead>
+                    <tr>
+                        <th scope="col">CLIENTE</th>
+                        <th scope="col">HORA</th>
+                        <th scope="col">N PERSONAS</th>
+                        <th scope="col">DIA</th>
+                        <th scope="col">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reserva in reservas %}
+                    <tr class="">
+                        <td>{{ reserva.cliente }}</td>
+                        <td>{{ reserva.hora }}</td>
+                        <td>{{ reserva.numero_personas }}</td>
+                        <td>{{ reserva.fecha }}</td> 
+                        <td>
+                            <a class="btn btn-danger" href="{% url 'eliminar_reserva_admin' reserva.id_reserva %}" onclick="return confirm('¿Estás seguro de que deseas cancelar esta reserva?');">Cancelar</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8">No tienes reservas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock%}

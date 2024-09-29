@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+<style>
+    .bienvenido {
+        width: auto;
+        margin: 50px auto;
+        padding: 20px;
+        text-align: center;
+        background: linear-gradient(135deg, #227B94, #16325B);
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+    }
+    
+    .bienvenido h1,h2 {
+        font-family: 'Arial', sans-serif;
+        font-size: 26px;
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    .bienvenido p {
+        font-family: 'Arial', sans-serif;
+        font-size: 16px;
+        color: #E0E0E0;
+        margin: 0;
+        padding: 10px 0 0;
+    }
+
+    .banner-maritimo {
+        background: linear-gradient(135deg, #227B94, #16325B);
+        background-size: cover;
+        background-position: center;
+        border-radius: 20px;
+        padding: 40px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .banner-maritimo h1 {
+        font-size: 48px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .banner-maritimo p {
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    a.btn-reserva {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: rgb(255, 255, 255);
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 25px;
+        transition: background-color 0.3s ease;
+    }
+    
+    a.btn-reserva:hover {
+        background-color: #F9DBBA;
+        color: black;
+    }
+</style>
+<br>
+<div class="banner-maritimo">
+    {% if user.is_authenticated %}
+    <h1>Hola {{ user.username.upper }}</h1>
+    <h2>Bienvenido al Portal de Locales</h2>
+    <h2>Aquí podrá ver todos nuestros negocios registrados</h2>
+    {% else %}
+    <h1>Hola, visitante</h1>
+    <h1>Bienvenido al Portal de Locales</h1>
+    <p>Para tener acceso a todas las funciones, inicie sesión</p>
+    {% endif %}
+</div>
+
+
+<div class="gallery">
+    {% for negocio in negocios %}
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="{{ negocio.logo_negocio.url }}" alt="{{ negocio.nombre_negocio }}">
+            </div>
+            <div class="card-back">
+                <h3>{{ negocio.nombre_negocio }}</h3>
+                <h3>{{ negocio.telefono }}</h3>
+                <h3>{{ negocio.usuario_administrado }}</h3>
+                <h3>{{ negocio.numero_de_local }}</h3>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

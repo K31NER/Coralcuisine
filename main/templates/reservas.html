@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block titulo %} Reservas{% endblock%}
+
+{% block contenido%}
+<style>
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-decoration: none;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-info {
+            background-color:  #17a2b8;
+            color: white; 
+        }
+        
+        .btn-info:hover {
+            background-color: #227B94; 
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: red; 
+            color:white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #e14050; 
+            color: white;
+        }
+    
+        .Agregar {
+            background-color:  #17a2b8;
+            color: white; 
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-decoration: none;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+        
+        .Agregar:hover {
+            background-color: #227B94; 
+            color: white;
+        }
+    
+    
+    .funciones{
+        display: flex;
+    }
+    .editar{
+        display: flex;
+        
+    }
+    .borrar{
+        display: flex;
+    }
+    /* Media query para pantallas pequeñas */
+    @media (max-width: 600px) {
+            .funciones{
+                display: block;
+                padding-bottom: 10px;
+            }
+        }
+    </style>
+
+<div class="form">
+    <div class="form-header">TUS RESERVAS</div>
+
+    <div class="form-body">
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Número de personas</th>
+                        <th>Administrador</th>
+                        <th>Negocio</th>
+                        <th>Local</th>
+                        <th>funciones</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for reserva in reservas %}
+                    <tr class="">
+                        <td>{{ reserva.fecha }}</td>
+                        <td>{{ reserva.hora }}</td>
+                        <td>{{ reserva.numero_personas }}</td>
+                        <td>{{ reserva.administrador.username }}</td>
+                        <td>{{ reserva.negocio.nombre_negocio }}</td>
+                        <td>{{ reserva.negocio.numero_de_local }}</td> 
+                        <td>
+                        <div class="funciones">
+                                <div class="editar">
+                                <a name="" id="" class="btn btn-info" href="{% url 'edit_reserva' reserva.id_reserva %}" role="button">Editar</a>
+                                </div>
+                                <div class="borrar">
+                                <a class="btn btn-danger" href="{% url 'eliminar_reserva' reserva.id_reserva %}" onclick="return confirm('¿Estás seguro de que deseas cancelar esta reserva?');">Cancelar</a>
+                                </div>
+                        </td>
+                        </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8">No tienes reservas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock%}

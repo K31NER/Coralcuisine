@@ -1,0 +1,155 @@
+<!DOCTYPE html5>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario</title>
+    <link rel="icon" href="https://i.imgur.com/vwDiFLS.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url("https://img.freepik.com/foto-gratis/vaciar-mar-playa-fondo_1339-4265.jpg");
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+    }
+
+    input {
+        border-radius: 20px;
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 16px;
+    }
+
+    .contenedor {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        background-color: #F9DBBA;
+        width: 350px;
+        height: auto;
+        padding: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .login h1 {
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .login img {
+        display: block;
+        margin: 0 auto 20px;
+    
+    }
+
+    .datos h4 {
+        margin-bottom: 5px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    button {
+        border-radius: 25px;
+        width: 100%;
+        height: 50px;
+        background-color: #227B94;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover{
+        background-color: #78B7D0;
+    }
+
+    a {
+        text-align: center;
+        display: block;
+        margin-top: 20px;
+        color: #000000;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+    .btn {
+        justify-content: center;
+        display: flex;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        background-color: #007bff;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+        background-color:  #227B94;
+        text-align: center;
+    }
+    
+    .btn:active {
+        background-color: #78B7D0;
+        text-align: center; 
+    }
+</style>
+<body>
+    <div class="contenedor">
+        <div class="login">
+            <img src="https://i.imgur.com/vwDiFLS.png" width="200" height="auto" >
+            
+            <form action="{% url 'form_reserva' producto.id_producto %}" method="POST">
+                {% csrf_token %}
+                <div class="datos">
+                    <h4><i class="fa-solid fa-user"></i> Nombre de usuario</h4>
+                    <input type="text" name="nombre" value="{{ user.username }}" readonly>
+                    
+                    <h4><i class="fa-solid fa-phone"></i> Teléfono</h4>
+                    <input type="tel" name="numero de contacto" pattern="\+57[0-9]{10}" value="+57" required>
+                    
+                    <h4><i class="fa-solid fa-user-group"></i> Número de personas</h4>
+                    <input type="number" min="1" max="15" name="personas" placeholder="Número de personas" required>
+                    
+                    <h4><i class="fa-solid fa-calendar-days"></i> Seleccione una fecha</h4>
+                    <input type="date" id="fecha" name="fecha" required>
+                    
+                    <h4><i class="fa-solid fa-clock"></i> Selecciona la hora</h4>
+                    <input type="time" id="hora" name="hora">
+            
+                    <button type="submit" class="btn">Enviar</button>
+                    <a href="{% url 'inicio' %}" class="btn" role="button">Volver</a>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</body>
+</html> 

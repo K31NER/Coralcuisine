@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registro</title>
+    <link rel="icon" href="https://i.imgur.com/vwDiFLS.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url("https://img.freepik.com/foto-gratis/vaciar-mar-playa-fondo_1339-4265.jpg");
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+    }
+
+    input {
+        border-radius: 20px;
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 16px;
+    }
+
+    .contenedor {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        background-color: #F9DBBA;
+        width: 350px;
+        height: auto;
+        padding: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .login h1 {
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .login img {
+        display: block;
+        margin: 0 auto 20px;
+    
+    }
+
+    .datos h4 {
+        margin-bottom: 5px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    button {
+        border-radius: 25px;
+        width: 100%;
+        height: 50px;
+        background-color: #227B94;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover{
+        background-color: #78B7D0;
+    }
+
+    a {
+        text-align: center;
+        display: block;
+        margin-top: 20px;
+        color: #000000;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+    /* Estilos personalizados para los radio buttons */
+    .tipo-cuenta {
+        margin-bottom: 20px;
+        display: flex;
+    }
+
+    .tipo-cuenta input[type="radio"] {
+        display: none;
+    }
+
+    .tipo-cuenta label {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-right: 10px;
+        border-radius: 25px;
+        background-color: #ccc;
+        color: #333;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .tipo-cuenta input[type="radio"]:checked + label {
+        background-color: #227B94;
+        color: white;
+    }
+
+    .tipo-cuenta label:hover {
+        background-color: #78B7D0;
+        color: white;
+    }
+</style>
+<body>
+    <div class="contenedor">
+        <div class="login">
+            <img src="https://i.imgur.com/vwDiFLS.png" width="300" height="auto">
+            <h1>Crear cuenta</h1>
+            <form action="{% url 'registro' %}" method="POST">
+                {% csrf_token %}
+                {% if error_message %}
+                <div class="error-message">{{ error_message }}</div>
+                {% endif %}
+                <div class="datos">
+                    <h4><i class="fa-solid fa-user"></i> Digite nombre de usuario</h4>
+                    {{ form.username }}  
+                    <h4><i class="fa-solid fa-lock"></i> Digite contraseña</h4>
+                    {{ form.password1 }}  
+                    <h4><i class="fa-solid fa-lock"></i> Confirme contraseña</h4>
+                    {{ form.password2 }}  
+                    <h4><i class="fa-solid fa-envelope"></i> Digite correo</h4>
+                    {{ form.email }}  
+                    <h4><i class="fa-solid fa-user-group"></i> Elija un tipo de cuenta</h4>
+                    <div class="tipo-cuenta">
+                        <input type="radio" id="admin" name="user_type" value="Administrador" required {% if form.user_type.value == 'Administrador' %}checked{% endif %}>
+                        <label for="admin">Administrador</label><br>
+                        <input type="radio" id="cliente" name="user_type" value="Cliente" required {% if form.user_type.value == 'Cliente' %}checked{% endif %}>
+                        <label for="cliente">Cliente</label>
+                    </div>
+                    <button type="submit">Crear cuenta</button>
+                    <a href="{% url 'login' %}">volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const adminRadio = document.getElementById('admin');
+
+        form.addEventListener('submit', function(event) {
+            if (adminRadio.checked) {
+                sessionStorage.setItem('is_admin', true);
+            } else {
+                sessionStorage.removeItem('is_admin');
+            }
+        });
+    });
+</script>
+</html>
